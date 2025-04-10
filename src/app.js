@@ -40,6 +40,7 @@ function startServe() {
       log(`✅ 生成路由 ${routerPath}`);
 
       router.get(routerPath, async (ctx, next) => {
+        log(`📥  ${ctx.request} ${ctx.request.url}`);
         ctx.status = 200;
         ctx.body = await api(ctx.request.query, ctx);
         next();
