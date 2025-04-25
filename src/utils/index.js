@@ -76,10 +76,30 @@ const sse = async (url, params) => {
   return res.data;
 };
 
+const fetch =  (url, params) => {
+  const res =  axios.get(url, {
+    headers: {
+      "accept": "application/json, text/javascript, */*; q=0.01",
+      "accept-language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
+      "priority": "u=1, i",
+      "sec-fetch-dest": "empty",
+      "sec-fetch-mode": "cors",
+      "sec-fetch-site": "same-origin",
+      "x-requested-with": "XMLHttpRequest",
+      "cookie": "kbzw__Session=hcf45k1grm605ogiqanq6qeg12; Path=/;",
+      "Referer": "https://www.jisilu.cn/data/lof/",
+      "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    params // 如果有查询参数，则通过 params 传入
+  });
+  return res.data;
+}
+
 module.exports = {
   request,
   post,
   jsonp,
   getModules,
   sse,
+  fetch
 };
