@@ -2,7 +2,14 @@ const koa = require('koa');
 const Router = require('@koa/router');
 const { log } = require('./utils/log');
 const { getModules } = require('./utils');
-
+const { saveDataToCsv,readDataFromCsv } = require('./utils/csv');
+const path = require('path'); // 引入 path 模块
+const filePath = path.join(__dirname, 'localDate/share.csv');
+// let p = [{code:20250225,name:'南方香港22',v1:'123',v2:'456'},{code:20250226,name:'南方香港11',v1:'1233',v2:'4566'}]
+// const a = saveDataToCsv(p,filePath,);
+readDataFromCsv(filePath).then((data) => {
+  console.log(data); // 输出读取到的数据
+});
 function startServe() {
   return new Promise((resolve) => {
     const app = new koa();
