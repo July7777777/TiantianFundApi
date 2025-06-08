@@ -30,7 +30,9 @@ function startServe() {
       router.get(routerPath, async (ctx, next) => {
         // log(`📥  ${ctx.request} ${ctx.request.url}`);
         ctx.status = 200;
-        ctx.body = await api(ctx.request.query, ctx);
+        // 通过 ctx.cookies.get 获取 cookie
+        const cookie = ctx.headers['xueqiucookie'];
+        ctx.body = await api(ctx.request.query, ctx,cookie);
         next();
       });
     });

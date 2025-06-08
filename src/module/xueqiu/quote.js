@@ -9,7 +9,27 @@ const { request } = require('../../utils/index.js');
  * detail: 日基本信息
  *
  */
-module.exports = async (params = {}) => {
+module.exports = async (params = {}, ctx = {}, cookie = '') => {
+  // console.log('quote',params)
+  // console.log('quote',cookie)
   const url = 'https://stock.xueqiu.com/v5/stock/quote.json';
-  return request(url, params);
+  try {
+    const response = await request(url, params, cookie);
+    return response;
+  } catch (error) {
+    console.log('error',error)
+    if (error.status === 400) {
+      return {
+        success: false,
+        status: 401,
+        message: error.response.data.error_code + ':' + error.response.data.error_description,
+      };
+    } else {
+      return {
+        success: false,
+        status: 500,
+        message: error.data.error_code + ':' + error.data.error_description,
+      };
+    }
+  }
 };

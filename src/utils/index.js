@@ -22,14 +22,19 @@ const baseData = {
   appVersion: version,
 };
 // 发送请求
-const request = async (url, params) => {
+const request = async (url, params,cookie='') => {
   const res = await axios(url, {
-    headers,
+    headers:{
+      ...headers,
+      cookie:cookie||headers.cookie,
+    },
     params: {
       ...baseData,
       ...params,
     },
   });
+  console.log('res cookie',cookie);
+  // console.log('res res',res);
   return res.data;
 };
 
